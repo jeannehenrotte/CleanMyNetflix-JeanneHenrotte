@@ -1,5 +1,7 @@
 # CleanMyNetflix-JeanneHenrotte
 
+https://github.com/jeannehenrotte/CleanMyNetflix-JeanneHenrotte.git
+
 Single Page Application designed to explore movie catalogs, organize your viewing space, and manage your favorites in a smooth and interactive way.
 
 ## Main Features
