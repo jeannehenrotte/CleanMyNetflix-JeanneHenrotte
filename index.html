@@ -1,32 +1,69 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netflix Navigation</title>
+    <title>My Netflix - SPA</title>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <!-- Styles SASS/CSS compilés -->
     <link rel="stylesheet" href="./styles/style.css">
 </head>
+
 <body>
+    <!-- Barre de Navigation -->
     <nav>
-        <a href="#home">Home</a>
-        <a href="#movies">Movies</a>
-        <a href="#profile">Profile</a>
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#movies" class="nav-link">Movies</a>
+        <a href="#favorites" class="nav-link">Favorites</a>
     </nav>
-    <main>
-        <section id="home">
-            <h1>Welcome to Netflix</h1>
-            <p>This is the Home section.</p>
-        </section>
-        <section id="movies">
-            <h1>Movies</h1>
-            <p>Explore our collection of movies.</p>
-        </section>
-        <section id="profile">
-            <h1>Your Profile</h1>
-            <p>Manage your account and preferences.</p>
-        </section>
-    </main>
+
+    <!-- Conteneur Principal Swiper -->
+    <div class="swiper">
+        <div class="swiper-wrapper">
+
+            <!-- Section 1 : Home -->
+            <section class="swiper-slide" id="home">
+                <div class="content-box">
+                    <h1 class="anim-title">Welcome to Netflix</h1>
+                    <p>Explore our advanced interactive movie application.</p>
+                </div>
+            </section>
+
+            <!-- Section 2 : Movies -->
+            <section class="swiper-slide" id="movies">
+                <div class="content-box">
+                    <h1>Movies Catalog</h1>
+                    <p>Discover trending series and films.</p>
+                </div>
+            </section>
+
+            <!-- Section 3 : Favorites (Drag & Drop) -->
+            <section class="swiper-slide" id="favorites">
+                <div class="content-box">
+                    <h1>Your Favorites List</h1>
+                    <p>Drag and reorder your favorite titles using Interact.js</p>
+                    <div class="favorites-container">
+                        <div class="draggable-item" xpos="0" ypos="0">Stranger Things</div>
+                        <div class="draggable-item" xpos="0" ypos="0">The Witcher</div>
+                        <div class="draggable-item" xpos="0" ypos="0">Extraction</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Éléments de pagination et navigation de Swiper -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+
+    <!-- Bibliothèques externes (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    
+    <!-- Script de l'application -->
     <script src="./app/Navigation.js"></script>
 </body>
 </html>

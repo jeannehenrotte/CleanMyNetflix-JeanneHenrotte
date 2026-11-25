@@ -1,0 +1,109 @@
+// Variables globales
+$primary-color: #e50914;
+$dark-bg: #141414;
+$text-white: #ffffff;
+$text-gray: #b3b3b3;
+
+// Reset et configuration de base
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: $dark-bg;
+    color: $text-white;
+    height: 100%;
+    overflow: hidden;
+}
+
+// Barre de Navigation fixe
+nav {
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+
+    a {
+        color: $text-white;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: $primary-color;
+        }
+    }
+}
+
+// Conteneur Swiper principal
+.swiper {
+    width: 100%;
+    height: 100vh;
+    background-color: $dark-bg;
+}
+
+// Slides individuelles
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    padding-top: 100px; // Évite que le contenu ne passe sous la navbar fixe
+
+    .content-box {
+        max-width: 700px;
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: $text-white;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: $text-gray;
+            margin-bottom: 30px;
+        }
+    }
+}
+
+// Section Favoris et éléments interactifs (Drag & Drop)
+.favorites-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    width: 100%;
+
+    .draggable-item {
+        background-color: #222;
+        color: $text-white;
+        padding: 18px 35px;
+        border-radius: 6px;
+        cursor: grab;
+        user-select: none;
+        touch-action: none;
+        border: 1px solid #444;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        transition: background-color 0.2s ease, border-color 0.2s ease;
+
+        &:hover {
+            background-color: #333;
+            border-color: $primary-color;
+        }
+
+        &:active {
+            cursor: grabbing;
+            background-color: $primary-color;
+        }
+    }
+}
