@@ -1,23 +1,25 @@
-// Variables globales
-$primary-color: #e50914;
-$dark-bg: #141414;
-$text-white: #ffffff;
-$text-gray: #b3b3b3;
+// Variables globales (Palette Beige & Bleu Foncé)
+$bg-beige: #f5f2eb;
+$card-blue: #1d2a44;
+$card-hover-blue: #2a3b5c;
+$text-dark: #111827;
+$text-light-blue: #cbd5e1;
+$accent-red: #2a3b5c;
 
 // Reset et configuration de base
 body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: $dark-bg;
-    color: $text-white;
+    background-color: $bg-beige;
+    color: $text-dark;
     height: 100%;
     overflow: hidden;
 }
 
 // Barre de Navigation fixe
 nav {
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(29, 42, 68, 0.95);
     padding: 15px;
     display: flex;
     justify-content: center;
@@ -26,16 +28,39 @@ nav {
     top: 0;
     width: 100%;
     z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 
     a {
-        color: $text-white;
+        color: #ffffff;
         text-decoration: none;
         font-weight: bold;
         transition: color 0.3s ease;
 
         &:hover {
-            color: $primary-color;
+            color: $accent-red;
         }
+    }
+}
+
+// Boutons génériques
+button {
+    background-color: $accent-red;
+    color: #ffffff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: opacity 0.2s ease, background-color 0.2s ease;
+
+    &:hover {
+        opacity: 0.85;
+    }
+
+    &:disabled {
+        background-color: #94a3b8;
+        cursor: not-allowed;
+        opacity: 0.6;
     }
 }
 
@@ -43,67 +68,300 @@ nav {
 .swiper {
     width: 100%;
     height: 100vh;
-    background-color: $dark-bg;
+    background-color: $bg-beige;
 }
 
 // Slides individuelles
 .swiper-slide {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
     text-align: center;
-    padding: 40px 20px;
+    padding: 90px 20px 60px 20px;
     box-sizing: border-box;
-    padding-top: 100px; // Évite que le contenu ne passe sous la navbar fixe
+    overflow-y: auto;
 
     .content-box {
-        max-width: 700px;
+        width: 100%;
+        max-width: 1000px;
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: $text-white;
+        h1, h2 {
+            color: $card-blue;
         }
 
         p {
-            font-size: 1.1rem;
-            color: $text-gray;
-            margin-bottom: 30px;
+            color: #4b5563;
         }
     }
 }
 
-// Section Favoris et éléments interactifs (Drag & Drop)
+// --- SLIDE 1 : HOME (Clé API + Recherche) ---
+.config-box, .search-box {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px auto;
+    max-width: 550px;
+    text-align: left;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        font-size: 0.9rem;
+        color: $card-blue;
+    }
+
+    .input-group {
+        display: flex;
+        gap: 10px;
+
+        input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            color: $text-dark;
+            font-size: 0.95rem;
+
+            &:focus {
+                outline: none;
+                border-color: $card-blue;
+            }
+        }
+    }
+}
+
+// --- SLIDE 2 : MOVIES (Grille des résultats) ---
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 18px;
+    margin-top: 20px;
+
+    .movie-card {
+        background: $card-blue;
+        color: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        transition: transform 0.2s ease;
+
+        &:hover {
+            transform: translateY(-4px);
+        }
+
+        img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .info {
+            padding: 12px;
+
+            .title {
+                font-weight: bold;
+                font-size: 1rem;
+                margin-bottom: 5px;
+            }
+
+            .director {
+                font-size: 0.85rem;
+                color: $text-light-blue;
+            }
+        }
+
+        .card-actions {
+            padding: 10px;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            background: #141f36;
+
+            button {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+        }
+    }
+}
+
+// --- SLIDE 3 : PROFILE (Favoris en cartes VERTICALES compactes + Drag & Drop) ---
 .favorites-container {
     margin-top: 20px;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 15px;
-    align-items: center;
+    justify-content: center;
     width: 100%;
+    max-width: 900px;
 
-    .draggable-item {
-        background-color: #222;
-        color: $text-white;
-        padding: 18px 35px;
-        border-radius: 6px;
+    .draggable-item.movie-fav-card {
+        display: flex;
+        flex-direction: column; // Organisation verticale de la carte
+        width: 130px;           // Largeur compacte
+        background-color: $card-blue;
+        color: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
         cursor: grab;
         user-select: none;
         touch-action: none;
-        border: 1px solid #444;
-        font-weight: 600;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-        transition: background-color 0.2s ease, border-color 0.2s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        transition: transform 0.2s ease, background-color 0.2s ease;
 
         &:hover {
-            background-color: #333;
-            border-color: $primary-color;
+            background-color: $card-hover-blue;
+            transform: translateY(-3px);
         }
 
         &:active {
             cursor: grabbing;
-            background-color: $primary-color;
+        }
+
+        img {
+            width: 100%;
+            height: 170px; // Format affiche verticale
+            object-fit: cover;
+        }
+
+        .fav-info {
+            padding: 8px;
+            text-align: center;
+            flex: 1;
+
+            .title {
+                font-size: 0.85rem;
+                font-weight: bold;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .director {
+                font-size: 0.75rem;
+                color: $text-light-blue;
+                margin-top: 2px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-around;
+            padding: 6px;
+            background: #141f36;
+            gap: 4px;
+
+            button {
+                padding: 3px 6px;
+                font-size: 0.7rem;
+            }
+        }
+    }
+}
+
+.profile-bottom-actions {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+// --- MODALE ---
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+
+    &.hidden {
+        display: none;
+    }
+
+    .modal-box {
+        background: #ffffff;
+        color: $text-dark;
+        padding: 25px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 500px;
+        max-height: 80vh;
+        overflow-y: auto;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+        h2 {
+            color: $card-blue;
+            margin-top: 0;
+        }
+
+        .field {
+            margin: 12px 0;
+            text-align: left;
+            font-size: 0.9rem;
+            color: #4b5563;
+
+            input {
+                width: 100%;
+                padding: 8px 10px;
+                margin-top: 5px;
+                box-sizing: border-box;
+                background: #f8fafc;
+                border: 1px solid #cbd5e1;
+                color: $text-dark;
+                border-radius: 4px;
+
+                &:focus {
+                    outline: none;
+                    border-color: $card-blue;
+                }
+            }
+        }
+
+        .keyword-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin: 15px 0;
+
+            .keyword-badge {
+                background: #f1f5f9;
+                padding: 6px 12px;
+                border-radius: 20px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 0.85rem;
+                border: 1px solid #cbd5e1;
+                color: $card-blue;
+
+                button {
+                    padding: 4px 8px;
+                    font-size: 0.75rem;
+                }
+            }
+        }
+
+        .actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
         }
     }
 }

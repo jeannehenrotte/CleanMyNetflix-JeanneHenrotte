@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Netflix - SPA</title>
+    <title>My Netflix</title>
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
     <!-- Styles SASS/CSS compilés -->
@@ -13,52 +13,79 @@
 <body>
     <!-- Barre de Navigation -->
     <nav>
-        <a href="#home" class="nav-link">Home</a>
-        <a href="#movies" class="nav-link">Movies</a>
-        <a href="#favorites" class="nav-link">Favorites</a>
+        <a href="#home" class="nav-link" data-slide="0">Home</a>
+        <a href="#movies" class="nav-link" data-slide="1">Movies</a>
+        <a href="#favorites" class="nav-link" data-slide="2">Profile</a>
     </nav>
 
     <!-- Conteneur Principal Swiper -->
     <div class="swiper">
         <div class="swiper-wrapper">
 
-            <!-- Section 1 : Home -->
+            <!-- Section 1 : HOME (Clé API & Recherche directement ici) -->
             <section class="swiper-slide" id="home">
                 <div class="content-box">
-                    <h1 class="anim-title">Welcome to Netflix</h1>
-                    <p>Explore our advanced interactive movie application.</p>
+                    <h1 class="anim-title">My Netflix</h1>
+                    <p>Configure your TMDb API Token and search for new movies.</p>
+                    
+                    <div class="config-box">
+                        <label for="api_key_input">TMDb API Read Access Token (Bearer)</label>
+                        <div class="input-group">
+                            <input type="password" id="api_key_input" placeholder="Paste TMDb API Token...">
+                            <button class="save-key">Save Key</button>
+                        </div>
+                    </div>
+
+                    <div class="search-box">
+                        <label for="search_query">Search a Movie</label>
+                        <div class="input-group">
+                            <input type="text" id="search_query" placeholder="Enter movie title...">
+                            <button class="search">Search</button>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Section 2 : Movies -->
+            <!-- Section 2 : MOVIES (Résultats de recherche / Populaires) -->
             <section class="swiper-slide" id="movies">
                 <div class="content-box">
-                    <h1>Movies Catalog</h1>
-                    <p>Discover trending series and films.</p>
+                    <h2>Movies Catalog</h2>
+                    <p>Explore trending films or search results.</p>
+                    <!-- C'est ici que le JS injectera la grille de films -->
+                    <div id="movies-content"></div>
                 </div>
             </section>
 
-            <!-- Section 3 : Favorites (Drag & Drop) -->
+            <!-- Section 3 : PROFILE / FAVORITES (Drag & Drop) -->
             <section class="swiper-slide" id="favorites">
                 <div class="content-box">
-                    <h1>Your Favorites List</h1>
-                    <p>Drag and reorder your favorite titles using Interact.js</p>
-                    <div class="favorites-container">
-                        <div class="draggable-item" xpos="0" ypos="0">Stranger Things</div>
-                        <div class="draggable-item" xpos="0" ypos="0">The Witcher</div>
-                        <div class="draggable-item" xpos="0" ypos="0">Extraction</div>
+                    <h2>My Profile & Favorites</h2>
+                    <p>Drag and reorder your favorite movies freely.</p>
+                    
+                    <!-- Liste des favoris dynamique -->
+                    <div class="favorites-container" id="profile-content"></div>
+
+                    <div class="profile-bottom-actions">
+                        <button class="new">Add</button>
+                        <button class="reset">Reset</button>
+                        <button class="my-keywords">Keywords</button>
                     </div>
                 </div>
             </section>
         </div>
 
-        <!-- Éléments de pagination et navigation de Swiper -->
+        <!-- Pagination et navigation Swiper -->
         <div class="swiper-pagination"></div>
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
     </div>
 
-    <!-- Bibliothèques externes (CDN) -->
+    <!-- Modale globale -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal-box" id="modal-content"></div>
+    </div>
+
+    <!-- Bibliothèques externes -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
